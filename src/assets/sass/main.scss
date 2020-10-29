@@ -4,5 +4,9 @@
 /* Custom Variables and Functions*/
 // @import 'variables';
 
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+
 /* Uncomment to import the entire Bulma framework */
 @import '~bulma/bulma';
