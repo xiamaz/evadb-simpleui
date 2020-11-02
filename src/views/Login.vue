@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   data: function() {
     return {
@@ -37,15 +36,15 @@ export default {
     }
   },
   methods: {
-    login: function() {
+    login: async function() {
       if (!(this.user && this.password)) {
         this.isIncorrect = true
       } else {
         this.isIncorrect = false
       }
-      axios.post(
-        'http://localhost:5000/login', {user: this.user, password: this.password}
-      ).then((response) => {
+      try {
+        const response = await this.$http.post(
+          "/login", {user: this.user, password: this.password})
         const data = response.data
         if (data["error"]) {
           this.isIncorrect = true
@@ -59,10 +58,10 @@ export default {
           this.$store.commit("setUser", {name: this.user, loggedIn: data["data"]["logged_in"]})
           this.$router.push({path: "/"})
         }
-      }).catch((error) => {
+      } catch (error) {
         this.isIncorrect = true
         this.errorMessage = error.toString()
-      })
+      }
     }
   }
 }

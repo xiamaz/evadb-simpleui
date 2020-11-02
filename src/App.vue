@@ -18,7 +18,7 @@
         </div>
         <div class="navbar-end">
           <div v-if="loggedIn" class="navbar-item">
-            <router-link to="/user" class="button is-light">Logged in as {{ userName }}</router-link>
+            <button v-on:click="logout" class="button is-light">Logged in as {{ userName }}</button>
           </div>
           <div v-else class="navbar-item">
             <router-link to="/login" class="button is-light">Login</router-link>
@@ -33,19 +33,39 @@
 </template>
 
 <script>
-  module.exports = {
-    data: function() {
-     return {
-      isActive: false
-     }
+async function logout(instance) {
+  var data
+  try {
+    const resp = await instance.post("/logout")
+    data = resp.json
+  } catch (error) {
+    data = {"error": error.toString(), "data": null}
+  }
+  return data
+}
+
+export default {
+  data: function() {
+   return {
+    isActive: false
+   }
+  },
+  computed: {
+    userName () {
+      return this.$store.state.user.userName
     },
-    computed: {
-      userName () {
-        return this.$store.state.user.userName
-      },
-      loggedIn () {
-        return this.$store.state.user.loggedIn
+    loggedIn () {
+      return this.$store.state.user.loggedIn
+    }
+  },
+  methods: {
+    async logout () {
+      logout(this.$http)
+      this.$store.commit("setUser", {"userName": "", "loggedIn": false})
+      if (this.$route.path != '/') {
+        this.$router.push("/")
       }
     }
   }
+}
 </script>
