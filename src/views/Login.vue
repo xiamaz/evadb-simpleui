@@ -17,7 +17,7 @@
     </div>
   </div>
   <div class="login-button-container">
-    <button type="button" class="level-item button is-primary" v-on:click="login">Login</button>
+    <button type="button" class="level-item button is-primary" :class="{ 'is-loading': isLoading}" v-on:click="login">Login</button>
     <span class="level-item has-text-danger ml-3">{{ errorMessage }}</span>
   </div>
   </form>
@@ -33,20 +33,27 @@ export default {
       password: "",
       showPassword: false,
       errorMessage: "",
+      isLoading: false,
+    }
+  },
+  computed: {
+    loggedIn () {
+      return this.$store.getters.isLoggedIn
+    },
+  },
+  watch: {
+    loggedIn(newValue) {
+      // redirect if logged in
+      if (newValue) {
+        this.$router.push("/")
+      }
     }
   },
   methods: {
     login: async function() {
-      const result = await this.$http.login(this.user, this.password)
-      if (result["error"]) {
-        this.isIncorrect = true
-        this.errorMessage = result["error"]
-      } else {
-        this.errorMessage = ""
-        this.isIncorrect = false
-        this.$router.push({path: "/"})
-        this.$store.commit("setUser", {name: this.user, loggedIn: true})
-      }
+      this.isLoading = true
+      await this.$store.dispatch("login", {user: this.user, password: this.password})
+      this.isLoading = false
     }
   }
 }

@@ -1,12 +1,11 @@
-import axios from "axios"
 import Vue from 'vue'
+import axios from "axios"
+
 import globals from '@/globals'
 
 
 axios.defaults.withCredentials = true;
 
-// Create axios instance for making http calls
-const instance = createInstance(globals.ServerUrl)
 
 function createInstance(baseURL){
     return axios.create({
@@ -18,7 +17,11 @@ function createInstance(baseURL){
     })
 }
 
-const evaInstance = {
+// Create axios instance for making http calls
+const instance = createInstance(globals.ServerUrl)
+
+
+export const api = {
   async getSamples() {
     const query = {
       "datebegin":       "",
@@ -65,14 +68,18 @@ const evaInstance = {
       data = {"error": error.toString(), "data": null}
     }
     return data
+  },
+  async checkSession() {
+    return {"error": "Yes", "data": null}
   }
 }
 
-const http = {
+
+const apiPlugin = {
     install () {
-        Vue.prototype.$http = evaInstance
+        Vue.prototype.$http = api
     }
 } // Check debug/build mode
 
-Vue.use(http)
-export default http
+Vue.use(apiPlugin)
+export default apiPlugin

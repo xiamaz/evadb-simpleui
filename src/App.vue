@@ -44,16 +44,19 @@ export default {
       return this.$store.state.user.userName
     },
     loggedIn () {
-      return this.$store.state.user.loggedIn
+      return this.$store.getters.isLoggedIn
+    }
+  },
+  watch: {
+    loggedIn(newValue) {
+      if (!newValue) {
+        this.$router.push("/login")
+      }
     }
   },
   methods: {
-    async logout () {
-      await this.$http.logout()
-      this.$store.commit("setUser", {"userName": "", "loggedIn": false})
-      if (this.$route.path != '/') {
-        this.$router.push("/")
-      }
+    logout () {
+      this.$store.dispatch("logout")
     }
   }
 }
