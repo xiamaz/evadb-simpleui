@@ -1,35 +1,36 @@
 <template>
-  <div id="app">
-    <nav id="nav" class="navbar is-primary" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-        <img src="./assets/Banner mono@8x.png" alt="">
-        </a>
-        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMain" v-on:click="isActive = !isActive">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
+<div id="app">
+  <nav class="flex items-center justify-between flex-wrap bg-orange-500 p-3">
+    <div class="flex items-center flex-shrink-0 text-white mr-6">
+      <a class="" href="/">
+      <img class="fill-current h-8 mr-2" src="./assets/Banner mono@8x.png" alt="">
+      </a>
+    </div>
+    <div class="block lg:hidden">
+      <button @click="isActive = !isActive" class="flex items-center px-3 py-2 border rounded text-orange-200 border-orange-400 hover:text-white hover:border-white">
+        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+      </button>
+    </div>
+
+    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto" :class="{hidden: !isActive}">
+      <div class="text-sm lg:flex-grow">
+        <router-link to="/" class="block mt-4 lg:inline-block lg:mt-0 text-orange-200 hover:text-white mr-4">
+          Home
+        </router-link>
+        <router-link to="/variants" class="block mt-4 lg:inline-block lg:mt-0 text-orange-200 hover:text-white mr-4">
+          Variant Search
+        </router-link>
       </div>
-      <div id="navbarMain" class="navbar-menu" v-bind:class="{ 'is-active': isActive }">
-        <div class="navbar-start">
-            <router-link to="/" class="navbar-item">Home</router-link>
-            <router-link to="/variants" class="navbar-item">Variant Search</router-link>
-        </div>
-        <div class="navbar-end">
-          <div v-if="loggedIn" class="navbar-item">
-            <button v-on:click="logout" class="button is-light">Logout</button>
-          </div>
-          <div v-else class="navbar-item">
-            <router-link to="/login" class="button is-light">Login</router-link>
-          </div>
-        </div>
+      <div>
+        <a v-if="loggedIn" @click="logout" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-orange-500 hover:bg-white mt-4 lg:mt-0">Logout</a>
+        <router-link v-else to="/login" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-orange-500 hover:bg-white mt-4 lg:mt-0">Login</router-link>
       </div>
-    </nav>
-    <section class="section">
-      <router-view/>
-    </section>
-  </div>
+    </div>
+  </nav>
+  <section class="section">
+    <router-view/>
+  </section>
+</div>
 </template>
 
 <script>

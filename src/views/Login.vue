@@ -1,17 +1,17 @@
 <template>
-<div class="container">
+<div class="container mx-auto">
   <form>
   <div class="field">
     <label class="label">User</label>
     <div class="control has-icons-left">
-      <input class="input" type="text" v-bind:class="{ 'is-danger': isIncorrect }" v-model="user"/>
+      <input class="bg-gray-200 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" type="text" v-bind:class="{ 'is-danger': isIncorrect }" v-model="user"/>
       <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
     </div>
   </div>
   <div class="field">
     <label class="label">Password</label>
-    <div class="control has-icons-left has-icons-right">
-      <input class="input" :type="showPassword ? 'text' : 'password' " v-bind:class="{ 'is-danger': isIncorrect }" v-model="password"/>
+    <div class="mt-1 relative rounded-md shadow-sm">
+      <input class="form-input block w-full pl-7 pr-12 sm:text-sm sm:leading-5" :type="showPassword ? 'text' : 'password' " v-bind:class="{ 'is-danger': isIncorrect }" v-model="password"/>
       <span class="icon is-small is-left"><i class="fas fa-key"></i></span>
       <span class="icon is-action is-small is-right" v-on:mousedown="showPassword = true" v-on:mouseup="showPassword = false"><i class="fas fa-eye"></i></span>
     </div>

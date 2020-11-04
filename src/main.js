@@ -4,7 +4,9 @@ import router from './router'
 import store from './store'
 import apiPlugin from './api'
 
-import './assets/sass/main.scss'
+import './assets/styles/index.css'
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
 
 Vue.config.productionTip = false
 
