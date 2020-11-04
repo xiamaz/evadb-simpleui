@@ -14,11 +14,11 @@
       <div id="navbarMain" class="navbar-menu" v-bind:class="{ 'is-active': isActive }">
         <div class="navbar-start">
             <router-link to="/" class="navbar-item">Home</router-link>
-            <router-link to="/about" class="navbar-item">About</router-link>
+            <router-link to="/search" class="navbar-item">Search</router-link>
         </div>
         <div class="navbar-end">
           <div v-if="loggedIn" class="navbar-item">
-            <button v-on:click="logout" class="button is-light">Logged in as {{ userName }}</button>
+            <button v-on:click="logout" class="button is-light">Logout</button>
           </div>
           <div v-else class="navbar-item">
             <router-link to="/login" class="button is-light">Login</router-link>
@@ -33,17 +33,6 @@
 </template>
 
 <script>
-async function logout(instance) {
-  var data
-  try {
-    const resp = await instance.post("/logout")
-    data = resp.json
-  } catch (error) {
-    data = {"error": error.toString(), "data": null}
-  }
-  return data
-}
-
 export default {
   data: function() {
    return {
@@ -60,7 +49,7 @@ export default {
   },
   methods: {
     async logout () {
-      logout(this.$http)
+      await this.$http.logout()
       this.$store.commit("setUser", {"userName": "", "loggedIn": false})
       if (this.$route.path != '/') {
         this.$router.push("/")

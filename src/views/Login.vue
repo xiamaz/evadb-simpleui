@@ -37,30 +37,15 @@ export default {
   },
   methods: {
     login: async function() {
-      if (!(this.user && this.password)) {
+      const result = await this.$http.login(this.user, this.password)
+      if (result["error"]) {
         this.isIncorrect = true
+        this.errorMessage = result["error"]
       } else {
+        this.errorMessage = ""
         this.isIncorrect = false
-      }
-      try {
-        const response = await this.$http.post(
-          "/login", {user: this.user, password: this.password})
-        const data = response.data
-        if (data["error"]) {
-          this.isIncorrect = true
-          this.errorMessage = data["error"]
-        } else if (!data["data"]["logged_in"]) {
-          this.isIncorrect = true
-          this.errorMessage = "Login failed."
-        } else {
-          this.isIncorrect = false
-          this.errorMessage = ""
-          this.$store.commit("setUser", {name: this.user, loggedIn: data["data"]["logged_in"]})
-          this.$router.push({path: "/"})
-        }
-      } catch (error) {
-        this.isIncorrect = true
-        this.errorMessage = error.toString()
+        this.$router.push({path: "/"})
+        this.$store.commit("setUser", {name: this.user, loggedIn: true})
       }
     }
   }
