@@ -13,6 +13,12 @@ const routes = [
     meta: {requiresAuth: true},
   },
   {
+    path: '/variants',
+    name: 'Variants',
+    component: () => import('@/views/Variants.vue'),
+    meta: {requiresAuth: true},
+  },
+  {
     path: '/sample/:id',
     name: 'Sample',
     component: () => import('@/views/Sample.vue'),

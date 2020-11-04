@@ -40,9 +40,7 @@
     </div>
   </div>
   <footer class="card-footer">
-   <p class="card-footer-item">
-    <span>Show sample</span>
-   </p>
+    <router-link :to="'/sample/' + sample['Interal ID']" class="card-footer-item">Show sample</router-link>
   </footer>
 </div>
 </template>

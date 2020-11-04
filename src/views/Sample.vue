@@ -1,27 +1,21 @@
 <template>
-  <SampleList v-if="loggedIn"/>
-  <div v-else class="container">
-    <h1 class="title">EVAdb - Variant database</h1>
-    <p>Please login to continue.</p>
-  </div>
+<div v-if="isLoaded">Sample</div>
+<progress v-else class="progress is-small is-primary" max="100">15%</progress>
 </template>
 
 <script>
 // @ is an alias to /src
-import SampleList from "@/components/SampleList.vue"
 
 export default {
-  name: 'Home',
+  name: 'Sample',
+  data: function() {
+    return {
+      isLoaded: false,
+    }
+  },
   components: {
-    SampleList
   },
   computed: {
-    sampleId () {
-      return this.$route.params.id
-    },
-    loggedIn () {
-      return this.$store.state.user.loggedIn
-    }
   }
 }
 </script>

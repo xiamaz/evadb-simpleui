@@ -14,7 +14,7 @@
       <div id="navbarMain" class="navbar-menu" v-bind:class="{ 'is-active': isActive }">
         <div class="navbar-start">
             <router-link to="/" class="navbar-item">Home</router-link>
-            <router-link to="/search" class="navbar-item">Search</router-link>
+            <router-link to="/variants" class="navbar-item">Variant Search</router-link>
         </div>
         <div class="navbar-end">
           <div v-if="loggedIn" class="navbar-item">
