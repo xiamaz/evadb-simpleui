@@ -1,46 +1,31 @@
 <template>
-<div class="container">
-  <h1 class="title">All samples</h1>
+<div class="container mx-auto">
   <div v-if="isLoaded">
     <div v-if="error" class="has-text-danger">{{ error }}</div>
     <div v-else>
-      <div class="field has-addons">
-        <div class="control has-icons-left is-expanded">
-          <input class="input" v-model="queryInput" placeholder="Search Samples"/>
-          <span class="icon is-small is-left">
-            <i class="fas fa-search"></i>
+      <div class="">
+        <div class="relative flex w-full flex-wrap items-stretch mt-6">
+          <span class="absolute leading-snug h-full z-10 w-8 pl-4 py-3 text-gray-500"><i class="fas fa-search"></i></span>
+          <input class="relative block w-full rounded-xl pl-12 p-3 shadow placeholder-gray-700 focus:outline-none focus:shadow-xl" v-model="queryInput" placeholder="Search Samples"/>
+          <span class="absolute right-0 pr-4 my-3 pl-4 cursor-pointer border-l border-gray-400 border-solid" :class="{'text-black': filterVisible, 'text-gray-400': !filterVisible}" @click="toggleFilter">
+            <i class="fas fa-filter"></i>
           </span>
         </div>
-        <div class="control">
-          <button class="button" :class="{'is-info': filterVisible}" title="Filter options" @click="toggleFilter">
-            <span class="icon">
-              <i class="fas fa-filter"></i>
-            </span>
-          </button>
-        </div>
       </div>
-      <div v-show="filterVisible" class="panel">
-        <div class="message is-info">
-          <div class="message-header">
-            Filter Options
-          </div>
-          <div class="message-body">
-            <div class="field has-addons">
-              <p class="control">
-                <button class="button">Date</button>
-              </p>
-              <p class="control">
-                <button class="button">Date</button>
-              </p>
-              <p class="control">
-                <button class="button">Date</button>
-              </p>
+      <div v-show="filterVisible" class="block w-full shadow-xl bg-gray-100 p-4 rounded-xl">
+        <div class="font-bold border-b pb-1 mx-4">
+          Filter Options
+        </div>
+        <div class="flex mt-2 mx-4">
+          <div class="border rounded-md">
+            <div class="flex flex-col p-3">
+              Placeholder
             </div>
           </div>
         </div>
       </div>
-      <div class="container">
-        <ul id="sampleCards" class="content">
+      <div class="mt-4">
+        <ul id="sampleCards" class="">
           <li v-for="sample in samples" :key="sample.n" class="mb-5">
             <SampleCard :sample="sample"/>
           </li>
