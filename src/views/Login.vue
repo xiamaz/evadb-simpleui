@@ -1,5 +1,5 @@
 <template>
-<div class="max-w-md mt-16 mx-auto">
+<form class="max-w-md mt-16 mx-auto">
   <h4 class="text-sm text-center text-gray-700 mb-5">Log in to your account</h4>
   <div class="field">
     <div class="relative flex w-full flex-wrap items-stretch mb-1">
@@ -19,7 +19,7 @@
       Log In
     </button>
   </div>
-</div>
+</form>
 </template>
 
 <script>

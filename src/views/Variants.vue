@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ patientId }}
   </div>
 </template>
 
@@ -8,6 +9,7 @@
 
 export default {
   name: 'Variants',
+  props: ["patientId"],
 }
 </script>
 
