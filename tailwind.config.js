@@ -7,6 +7,10 @@ module.exports = {
   theme: {
     extend: {},
   },
-  variants: {},
-  plugins: [],
+  variants: {
+    boxShadow: ({ after }) => after(['focus-within']),
+  },
+  plugins: [
+    require('@tailwindcss/custom-forms')
+  ],
 }

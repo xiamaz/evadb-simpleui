@@ -69,9 +69,9 @@
       </div>
   </div>
   <footer class="text-sm border-t flex text-center justify-between">
-    <div class="py-3 cursor-pointer w-full hover:bg-gray-100">
+    <router-link :to="'/variants/' + sample['Interal ID']" class="py-3 cursor-pointer w-full hover:bg-gray-100">
       Filter variants
-    </div>
+    </router-link>
     <router-link :to="'/sample/' + sample['Interal ID']" class="w-16 border-l flex flex-col justify-center content-center hover:bg-gray-100">
       <div>
         <i class="fas fa-external-link-alt"></i>

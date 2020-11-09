@@ -15,10 +15,10 @@
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto" :class="{hidden: !isActive}">
       <div class="text-sm lg:flex-grow">
         <router-link to="/" class="block mt-4 lg:inline-block lg:mt-0 text-orange-200 hover:text-white mr-4">
-          Home
+          Patients
         </router-link>
-        <router-link to="/variants" class="block mt-4 lg:inline-block lg:mt-0 text-orange-200 hover:text-white mr-4">
-          Variant Search
+        <router-link to="/searches" class="block mt-4 lg:inline-block lg:mt-0 text-orange-200 hover:text-white mr-4">
+          Searches
         </router-link>
       </div>
       <div>
