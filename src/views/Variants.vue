@@ -6,8 +6,11 @@
     <div class="grid grid-cols-3 p-2">
       <div class="p-2">
         <PatientSelector :patient-id="patientId"/>
-        <div class="text-lg mt-6 mb-8">
-         Added Searches
+        <div class="text-2xl mt-6 mb-8">
+          <div class="flex justify-between items-center border-b border-gray-500 pb-1">
+            <input class="appearance-none placeholder-gray-600 outline-none w-full" v-model="searchName" type="text" placeholder="Query Name">
+            <span class="text-gray-400"><i class="fas fa-edit"></i></span>
+          </div>
         </div>
         <div v-if="searches.length > 0">
           <ul class="space-y-2">
@@ -39,12 +42,28 @@
         <div class="bg-gray-200 text-center text-gray-600 mt-4 py-2 mx-auto w-24 rounded-full hover:bg-gray-500 hover:text-white cursor-pointer" @click="addSearch">
           <i class="fas fa-plus"></i>
         </div>
-        <div class="border border-orange-500 text-center text-orange-500 mt-8 py-1 rounded-full">
-          Run searches
+        <div class="border border-orange-500 text-center text-orange-500 mt-8 py-1 rounded-full cursor-pointer hover:bg-orange-500 hover:text-white" @click="submit">
+          Run query
         </div>
       </div>
       <VariantSearchPanel :set-mask="searches[activeIndex]" @submit="updateSearch(activeIndex, $event)"/>
     </div>
+    <Modal v-if="submitSuccess"
+      title="Search queued"
+      description="A query might take some time."
+      lbutton="Back to Search"
+      rbutton="Results Overview"
+      @lclick="submitSuccess = false"
+      @rclick="$router.push('/searches')"
+      />
+    <Modal v-if="errorMessage"
+      title="Error"
+      :description="errorMessage"
+      hcolor="red"
+      faicon="fa-exclamation-triangle"
+      rbutton="Back to Search"
+      @rclick="errorMessage = ''"
+      />
   </div>
 </template>
 
@@ -52,6 +71,7 @@
 // @ is an alias to /src
 import VariantSearchPanel from '@/components/VariantSearchPanel.vue'
 import PatientSelector from '../components/PatientSelector.vue'
+import Modal from '../components/Modal.vue'
 
 export default {
   name: 'Variants',
@@ -59,12 +79,16 @@ export default {
   components: {
     VariantSearchPanel,
     PatientSelector,
+    Modal,
   },
   data: function() {
     return {
+      searchName: "",
       searchId: this.patientId,
       searches: [{}],
       activeIndex: 0,
+      submitSuccess: false,
+      errorMessage: "",
     }
   },
   methods: {
@@ -91,7 +115,15 @@ export default {
       } else if (this.activeIndex > index) {
         this.activeIndex -= 1
       }
-    }
+    },
+    submit() {
+      // const data = {
+      //   name: this.searchName,
+      //   data: this.searches,
+      // }
+      // this.errorMessage = "Test"
+      this.submitSuccess = true
+    },
   }
 }
 </script>

@@ -1,5 +1,6 @@
 <template>
 <div>
+  Search Overview
 </div>
 </template>
 
