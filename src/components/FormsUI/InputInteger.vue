@@ -5,7 +5,7 @@
     @focus="$event.target.select()"
     @keydown="filter"
     @change="onChange"
-    class="appearance-none p-1 pr-3 rounded w-10 outline-none text-right"
+    class="appearance-none p-1 rounded w-10 outline-none text-right"
     type="number"
     :value="value"/>
   <span class="text-gray-500 bg-gray-200 px-2 text-md border-l border-gray-200 rounded-r pt-1">

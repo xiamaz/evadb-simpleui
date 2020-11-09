@@ -36,18 +36,26 @@ import RadioInput from '../FormsUI/RadioInput.vue'
 import Toggle from '../FormsUI/Toggle.vue'
 import MultiSelect from '../FormsUI/MultiSelect.vue'
 
+function schemaToData(schema) {
+  return Object.fromEntries(schema.reduce((acc, cur) => acc.concat(cur.entries), []).map(e => [e.id, e.default]))
+}
+
 export default {
   name: 'GenericSearch',
   components: { InputInteger, RadioInput, Toggle, MultiSelect },
   props: ['setData', 'schema'],
   data: function() {
-    const data = Object.fromEntries(this.schema.reduce((acc, cur) => acc.concat(cur.entries), []).map(e => [e.id, e.default]))
+    const data = schemaToData(this.schema)
     return {
       data: data,
       isSet: false,
     }
   },
   watch: {
+    schema: function() {
+      // recompute new default data
+      this.data = schemaToData(this.schema)
+    },
     data: function() {
       // breaks a cycle of endless updates if setData is used to set the mask...
       if (this.isSet) {

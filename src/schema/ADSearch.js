@@ -67,7 +67,11 @@ export default [
         input: {
           type: "RadioInput",
           props: {
-            options: ['all', 'affected', 'unaffected'],
+            options: [
+              {value: 'all', label: "All"},
+              {value: 'affected', label: "Affected"},
+              {value: 'unaffected', label: "Unaffected"},
+            ],
           },
         },
       },

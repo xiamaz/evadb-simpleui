@@ -1,9 +1,9 @@
 <template>
 <div class="">
-  <label class="flex items-center" v-for="option in options" :key="option" :class="{'text-gray-600': option !== value}">
-    <input class="form-radio text-orange-600" type="radio" :value="option" :checked="value == option" @change="onChange"/>
+  <label class="flex items-center" v-for="option in options" :key="option.value" :class="{'text-gray-600': option.value !== value}">
+    <input class="form-radio text-orange-600" type="radio" :value="option.value" :checked="value == option.value" @change="onChange"/>
     <span class="ml-2">
-      {{ option }}
+      {{ option.label }}
     </span>
   </label>
 </div>
