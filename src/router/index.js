@@ -33,6 +33,13 @@ const routes = [
     meta: {requiresAuth: true},
   },
   {
+    path: '/searches/:searchId',
+    name: 'SearchResult',
+    props: true,
+    component: () => import('@/views/SearchResult.vue'),
+    meta: {requiresAuth: true},
+  },
+  {
     path: '/projects',
     name: 'Projects',
     component: () => import('@/views/Projects.vue'),

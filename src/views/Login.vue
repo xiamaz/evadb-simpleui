@@ -15,22 +15,36 @@
     </div>
   </div>
   <div class="flex justify-center mt-8">
-    <button type="button" class="bg-orange-500 text-white active:bg-pink-600 w-full text-sm px-6 py-2 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" :class="{ 'is-loading': isLoading}" @click="login">
+    <button type="button" class="inline-flex justify-center bg-orange-500 text-white active:bg-pink-600 w-full text-sm px-6 py-2 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" :class="{ 'is-loading': isLoading}" @click="login">
+      <svg v-show="isLoading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
       Log In
     </button>
   </div>
+  <Modal v-if="errorMessage"
+    title="Error"
+    :description="errorMessage"
+    hcolor="red"
+    faicon="fa-exclamation-triangle"
+    rbutton="Dismiss"
+    @rclick="$store.commit('dismissLoginError')"
+    />
 </form>
 </template>
 
 <script>
+import Modal from '../components/Modal.vue'
+
 export default {
+  components: { Modal },
   data: function() {
     return {
       isIncorrect: false,
       user: "",
       password: "",
       showPassword: false,
-      errorMessage: "",
       isLoading: false,
     }
   },
@@ -38,6 +52,9 @@ export default {
     loggedIn () {
       return this.$store.getters.isLoggedIn
     },
+    errorMessage () {
+      return this.$store.getters.loginError
+    }
   },
   watch: {
     loggedIn(newValue) {

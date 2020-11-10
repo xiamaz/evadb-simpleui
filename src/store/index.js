@@ -11,6 +11,7 @@ export default new Vuex.Store({
     user: {
       userName: "",
       loggedIn: false,
+      errorMessage: "",
     },
     samples: {
       data: [],
@@ -19,11 +20,16 @@ export default new Vuex.Store({
   },
   getters: {
     isLoggedIn: state => state.user.loggedIn,
+    loginError: state => state.user.errorMessage,
   },
   mutations: {
+    dismissLoginError(state) {
+      state.user.errorMessage = ""
+    },
     setUser(state, payload) {
       state.user.userName = payload.name
       state.user.loggedIn = payload.loggedIn
+      state.user.errorMessage = payload.errorMessage
     },
     setSamples(state, payload) {
       state.samples.data = payload
@@ -33,20 +39,20 @@ export default new Vuex.Store({
   actions: {
     async logout (context) {
       await api.logout()
-      context.commit("setUser", {"userName": "", "loggedIn": false})
+      context.commit("setUser", {"userName": "", "loggedIn": false, errorMessage: ""})
     },
     async login (context, {user, password}) {
       const result = await api.login(user, password)
       if (result["error"]) {
-        context.commit("setUser", {name: "", loggedIn: false})
+        context.commit("setUser", {name: "", loggedIn: false, errorMessage: result["error"]})
       } else {
-        context.commit("setUser", {name: this.user, loggedIn: true})
+        context.commit("setUser", {name: this.user, loggedIn: true, errorMessage: ""})
       }
     },
     async checkSession(context) {
       const result = await api.checkSession()
       if (result["error"]) {
-        context.commit("setUser", {name: "", loggedIn: false})
+        context.commit("setUser", {name: "", loggedIn: false, errorMessage: result["error"]})
       }
     }
   },

@@ -64,6 +64,26 @@ export const api = {
     }
     return data
   },
+  async allQuery() {
+    var data
+    try {
+      const res = await instance.post("/next/query/all")
+      data = res.data
+    } catch (error) {
+      data = {"error": error.toString(), "data": null}
+    }
+    return data
+  },
+  async fetchQuery(queryId) {
+    var data
+    try {
+      const res = await instance.post("/next/query/fetch", {id: queryId})
+      data = res.data
+    } catch (error) {
+      data = {"error": error.toString(), "data": null}
+    }
+    return data
+  },
   async login(user, password) {
     if (!(user && password)) {
       return {"error": "User and Password must be filled.", "data": null}

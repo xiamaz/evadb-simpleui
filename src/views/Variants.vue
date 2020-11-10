@@ -116,13 +116,18 @@ export default {
         this.activeIndex -= 1
       }
     },
-    submit() {
-      // const data = {
-      //   name: this.searchName,
-      //   data: this.searches,
-      // }
-      // this.errorMessage = "Test"
-      this.submitSuccess = true
+    async submit() {
+      const query = {
+        name: this.searchName,
+        patientId: this.searchId,
+        data: this.searches,
+      }
+      const response = await this.$http.submitQuery(query)
+      if (response.error) {
+        this.errorMessage = response.error
+      } else {
+        this.submitSuccess = true
+      }
     },
   }
 }
