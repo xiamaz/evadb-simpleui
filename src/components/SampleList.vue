@@ -6,7 +6,7 @@
       <div class="">
         <div class="relative flex w-full flex-wrap items-stretch mt-6">
           <span class="absolute leading-snug h-full z-10 w-8 pl-4 py-3 text-gray-500"><i class="fas fa-search"></i></span>
-          <input class="relative block w-full rounded-xl pl-12 p-3 shadow placeholder-gray-700 focus:outline-none focus:shadow-xl" v-model="queryInput" placeholder="Search Samples"/>
+          <input class="relative block w-full rounded-xl pl-12 p-3 shadow placeholder-gray-700 focus:outline-none focus:shadow-xl" v-model="queryComputed" placeholder="Search Samples"/>
           <span class="absolute right-0 pr-4 my-3 pl-4 cursor-pointer border-l border-gray-400 border-solid" :class="{'text-black': filterVisible, 'text-gray-400': !filterVisible}" @click="toggleFilter">
             <i class="fas fa-filter"></i>
           </span>
@@ -64,8 +64,16 @@ export default {
     }
   },
   computed: {
-    samples () {
+    samples() {
       return this.$store.state.samples["data"]
+    },
+    queryComputed: {
+      get() {
+        return this.queryInput
+      },
+      set: debounce(function(newValue) {
+        this.queryInput = newValue
+      }, 500),
     },
     isLoaded() {
       return this.$store.state.samples["loaded"]
@@ -74,18 +82,12 @@ export default {
   watch: {
     queryInput: function() {
       this.queryIsDirty = true
-      this.filterSamples()
     }
   },
   methods: {
     toggleFilter() {
       this.filterVisible = !this.filterVisible
     },
-    filterSamples: debounce(function () {
-      this.isCalculating = true
-      this.isCalculating = false
-      this.queryIsDirty = false
-    }, 500)
   },
   mounted: async function() {
     const result = await this.$http.getSamples()

@@ -60,17 +60,17 @@ export default [
         },
       },
       {
-        id: "onlyaffecteds",
-        default: 'all',
+        id: "affecteds",
+        default: 'onlyaffecteds',
         label: "Occurence in",
         description: "Show all variants or only variants that occur in affected/unaffected individuals.",
         input: {
           type: "RadioInput",
           props: {
             options: [
-              {value: 'all', label: "All"},
-              {value: 'affected', label: "Affected"},
-              {value: 'unaffected', label: "Unaffected"},
+              {value: 'onlyaffecteds', label: "Affected"},
+              {value: 'onlyunaffecteds', label: "Unaffected"},
+              {value: '', label: "All"},
             ],
           },
         },

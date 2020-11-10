@@ -33,7 +33,7 @@ export default [
       },
       {
         id: "ncontrols",
-        default: '200',
+        default: '15',
         label: "In-house controls",
         description: "Maximum number allowed in in-house controls. Valid range 1-999.",
         input: {
@@ -140,7 +140,7 @@ export default [
     entries: [
       {
         id: "filter",
-        default: 'all',
+        default: 'filtered',
         label: "SNV Calling Filter",
         description: "GATK or SAMTools",
         input: {

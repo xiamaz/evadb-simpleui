@@ -49,12 +49,16 @@ export default {
     return {
       data: data,
       isSet: false,
+      isNew: true,
     }
   },
   watch: {
     schema: function() {
       // recompute new default data
-      this.data = schemaToData(this.schema)
+      if (this.isNew) {
+        this.data = schemaToData(this.schema)
+        this.isNew = false
+      }
     },
     data: function() {
       // breaks a cycle of endless updates if setData is used to set the mask...
