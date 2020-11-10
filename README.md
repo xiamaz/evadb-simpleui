@@ -1,5 +1,11 @@
 # evadb-simpleui
 
+![sample overview](./docs/overview.png)
+Sample overview.
+
+![Variant search](./docs/search.png)
+Variant search.
+
 ## Project setup
 ```
 npm install
